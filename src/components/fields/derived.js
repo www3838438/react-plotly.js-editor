@@ -10,9 +10,12 @@ import {
 
 export const CanvasSize = connectToContainer(UnconnectedNumeric, {
   modifyPlotProps: (props, context, plotProps) => {
-    const {fullContainer} = plotProps;
+    const {fullContainer, updateContainer, fullValue, attrMeta} = plotProps;
     if (plotProps.isVisible && fullContainer && fullContainer.autosize) {
       plotProps.isVisible = false;
+      if (fullValue !== attrMeta.dflt) {
+        updateContainer({[props.attr]: attrMeta.dflt});
+      }
     }
   },
 });
